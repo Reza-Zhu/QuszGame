@@ -3,9 +3,8 @@ import tkinter as tk
 import tkinter.messagebox
 window=tk.Tk()
 window.title('Python智力问答游戏')
-window.geometry('400x400')
+window.geometry('400x300')
 v=tk.StringVar()
-v.set(1)
 score=0
 num=0
 
@@ -21,13 +20,13 @@ c.execute('''CREATE TABLE IF NOT EXISTS COMPANY
 c = conn.cursor()
 
 c.execute("INSERT INTO COMPANY (QUESTION,ANSWER_A,ANSWER_B,ANSWER_C,ANSWER_D,RIGHT_ANSWER) \
-      VALUES ('qus_1','ans_1.0','ans_2','ans_3','ans_4','right_ans1')")
+      VALUES ('秦时,人们开凿沟通湘江和漓江的运河是','秦渠','灵渠','唐徕渠','郑国渠',2)")
 c.execute("INSERT INTO COMPANY (QUESTION,ANSWER_A,ANSWER_B,ANSWER_C,ANSWER_D,RIGHT_ANSWER) \
-      VALUES ('qus_2','ans_1.2','ans_2','ans_3','ans_4','right_ans2')")
+      VALUES ('“战国四公子”中齐国的孟尝君名为','魏无忌','赵胜','田文','黄歇',3)")
 c.execute("INSERT INTO COMPANY (QUESTION,ANSWER_A,ANSWER_B,ANSWER_C,ANSWER_D,RIGHT_ANSWER) \
-      VALUES ('qus_3','ans_1.3','ans_2','ans_3','ans_4','right_ans3')")
+      VALUES ('琵琶曲《十面埋伏》描述的是的情景','淝水之战','赤壁之战','巨鹿之战','垓下之战',4)")
 c.execute("INSERT INTO COMPANY (QUESTION,ANSWER_A,ANSWER_B,ANSWER_C,ANSWER_D,RIGHT_ANSWER) \
-      VALUES ('qus_4','ans_1.4','ans_2','ans_3','ans_4','right_ans4')")
+      VALUES ('中国古代中最早提到小孔成像的原理的著作是？','《九章算术》','《墨经》','《天工开物》','《四库全书》',2)")
 
 
 cursor=c.execute("select QUESTION, ANSWER_A, ANSWER_B, ANSWER_C, ANSWER_D, RIGHT_ANSWER from COMPANY")
@@ -48,27 +47,28 @@ r4 = tk.Radiobutton(window, text=value[num][num+4], variable=v, value=4)
 r4.pack()
 
 def next_and_judge():
-   global score
-   global num
+   global score,num,v
+   print(v.get(),value[num][5])
+   if v.get()==value[num][5]:
+        score+=25
    if num==3:
       tkinter.messagebox.showinfo(title='warning',message='You have end the game,press Finish Button')
    num=num+1
    var.set(value[num][0])
-
    r1.config(text=value[num][1])
    r2.config(text=value[num][2])
    r3.config(text=value[num][3])
    r4.config(text=value[num][4])
 
-   if v.get()==value[num][5]:
-        score=25+score
+
 
 
 b1=tk.Button(window,text='next',command=next_and_judge)
 b1.pack()
 
 def sum():
-    tkinter.messagebox.showinfo(title='END',message=str(score))
+   print(score)
+   tkinter.messagebox.showinfo(title='END',message='You get '+str(score)+' point')
 
 b2=tk.Button(window,text='Finish',command=sum)
 b2.pack()
