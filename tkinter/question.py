@@ -48,7 +48,7 @@ r4.pack()
 
 def next_and_judge():
    global score,num,v
-   print(v.get(),value[num][5])
+   #print(v.get(),value[num][5])
    if v.get()==value[num][5]:
         score+=25
    if num==3:
