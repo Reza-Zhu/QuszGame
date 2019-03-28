@@ -50,9 +50,11 @@ r4.pack()
 def next_and_judge():
    global score
    global num
+   if num==3:
+      tkinter.messagebox.showinfo(title='warning',message='You have end the game,press Finish Button')
    num=num+1
-   if num==5:
-      return
+   var.set(value[num][0])
+
    r1.config(text=value[num][1])
    r2.config(text=value[num][2])
    r3.config(text=value[num][3])
@@ -61,13 +63,14 @@ def next_and_judge():
    if v.get()==value[num][5]:
         score=25+score
 
+
 b1=tk.Button(window,text='next',command=next_and_judge)
 b1.pack()
 
 def sum():
     tkinter.messagebox.showinfo(title='END',message=str(score))
 
-b2=tk.Button(window,text='finish',command=sum)
+b2=tk.Button(window,text='Finish',command=sum)
 b2.pack()
 
 conn.commit()
